@@ -10,4 +10,8 @@ export class MapScreenComponent {
 
   public placesService: PlacesService = inject(PlacesService);
 
+  get isUserLocationReady() {
+    return this.placesService.isUserLocationReady();
+  }
+
 }
