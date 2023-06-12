@@ -22,7 +22,7 @@ export class PlacesService {
           this.userLocation = [coords.longitude, coords.latitude];
         },
         (err) => {
-          alert('Could not obtain Geolocation');
+          alert('Could not obtain geolocation');
           reject();
         }
       );
