@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
-import { PlacesService } from '../../services/places.service';
 import { Map, Marker, Popup } from 'mapbox-gl';
+
+import { MapService, PlacesService } from '../../services';
 
 @Component({
   selector: 'app-map-view',
@@ -13,6 +14,7 @@ export class MapViewComponent implements AfterViewInit {
   mapDivElement!: ElementRef;
 
   private placesService: PlacesService = inject(PlacesService);
+  private mapService: MapService = inject(MapService);
 
   ngAfterViewInit(): void {
     if(!this.placesService.userLocation) throw Error('Could not obtain user service geolocation');
@@ -34,6 +36,8 @@ export class MapViewComponent implements AfterViewInit {
       .setLngLat(this.placesService.userLocation)
       .setPopup(popup)
       .addTo(map);
+
+    this.mapService.setMap(map);
   }
 
 }
