@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
+import { Component, inject } from '@angular/core';
+import { PlacesService } from '../../services';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,13 +8,14 @@ import { Subject, Subscription, debounceTime, switchMap } from 'rxjs';
 })
 export class SearchBarComponent {
 
+  private placesService: PlacesService = inject(PlacesService);
   private debounceTimer?: NodeJS.Timeout;
 
   onQueryChange(query: string) {
     if(this.debounceTimer) clearTimeout(this.debounceTimer);
 
     this.debounceTimer = setTimeout(() => {
-      console.log(query)
+      this.placesService.getPlacesByQuery(query);
     }, 500)
   }
 
